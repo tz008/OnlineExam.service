@@ -1,0 +1,67 @@
+//plugins {
+//    id 'java'
+//}
+//
+//group 'OnlineExam'
+//version '1.0-SNAPSHOT'
+//
+//sourceCompatibility = 1.8
+//
+//repositories {
+//    mavenCentral()
+//}
+
+//dependencies {
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
+//
+//}
+buildscript {
+    repositories {
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+    }
+    dependencies {
+        //这里引入了spring-boot的版本管理，所以后面引入的spring-boot可以不用写版本
+        //classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+apply plugin: 'java'
+//1.5.3的时候使用下面这个
+//apply plugin: 'spring-boot'
+
+//2.0.3的时候使用下面这三个
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group 'com.drama'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+
+repositories {
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+}
+dependencies {
+//    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+//    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.10.5'
+//    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+//    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.10.5'
+    implementation "io.springfox:springfox-swagger2:2.9.2"
+    implementation "io.springfox:springfox-swagger-ui:2.9.2"
+
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    compile("org.springframework.boot:spring-boot-starter-web")
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

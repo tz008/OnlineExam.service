@@ -1,0 +1,5 @@
+rootProject.name = 'OnlineExam'
+include 'OnlineExam.app'
+include 'OnlineExam.web'
+include 'OnlineExam.utils'
+
