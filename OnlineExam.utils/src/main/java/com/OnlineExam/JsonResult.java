@@ -3,13 +3,11 @@ package com.OnlineExam;
 import com.OnlineExam.annotation.ExceptionCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
 
 /**
  * @author
  * @description 自定义统一响应体
  */
-@Getter
 @ApiModel
 public class JsonResult<T> {
     @ApiModelProperty(value = "状态码", notes = "默认1000是成功")

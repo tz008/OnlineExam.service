@@ -1,12 +1,10 @@
 package com.OnlineExam;
 
-import lombok.Getter;
 
 /**
  * @author
  * @description 响应码枚举
  */
-@Getter
 public enum ResultCode {
 
     SUCCESS(1000, "操作成功"),
