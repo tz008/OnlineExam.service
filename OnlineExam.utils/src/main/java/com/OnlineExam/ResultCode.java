@@ -2,18 +2,17 @@ package com.OnlineExam;
 
 
 /**
- * @author
- * @description 响应码枚举
+ 响应码枚举
  */
 public enum ResultCode {
 
-    SUCCESS(1000, "操作成功"),
+    SUCCESS(1000, "SUCCESS"),
 
-    FAILED(1001, "响应失败"),
+    FAILED(1001, "FAILED"),
 
-    VALIDATE_FAILED(1002, "参数校验失败"),
+    VALIDATE_FAILED(1002, "VALIDATE_FAILED"),
 
-    ERROR(5000, "未知错误");
+    ERROR(5000, "ERROR");
 
     private int code;
     private String msg;
@@ -30,4 +29,5 @@ public enum ResultCode {
     public String getMsg() {
         return msg;
     }
+
 }

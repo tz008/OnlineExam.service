@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onlineExam.web.dao.QuestionMapper">
+  <resultMap id="BaseResultMap" type="com.onlineExam.web.entity.Question">
+    <id column="question_number" jdbcType="INTEGER" property="questionNumber" />
+    <result column="question_type" jdbcType="VARCHAR" property="questionType" />
+    <result column="question_difficulty" jdbcType="INTEGER" property="questionDifficulty" />
+    <result column="question_knowledge" jdbcType="VARCHAR" property="questionKnowledge" />
+    <result column="question_point" jdbcType="INTEGER" property="questionPoint" />
+    <result column="question_time" jdbcType="INTEGER" property="questionTime" />
+    <result column="question_stem" jdbcType="VARCHAR" property="questionStem" />
+    <result column="question_answer" jdbcType="VARCHAR" property="questionAnswer" />
+    <result column="question_img" jdbcType="VARCHAR" property="questionImg" />
+  </resultMap>
+
+  <select id="selectAll"  resultType="com.onlineExam.web.entity.Question">
+    SELECT *
+    FROM question
+  </select>
+
+  <select id="selectByQuestionNumber"  resultType="com.onlineExam.web.entity.Question">
+    SELECT *
+    FROM question
+    WHERE
+        question.question_number = #{questionNumber}
+  </select>
+
+  <select id="selectByDifficulty"  resultType="com.onlineExam.web.entity.Question">
+    SELECT *
+    FROM question
+    WHERE
+        question.question_difficulty = #{questionDifficulty}
+  </select>
+
+  <select id="selectByKnowledge"  resultType="com.onlineExam.web.entity.Question">
+    SELECT *
+    FROM question
+    WHERE
+         question.question_knowledge
+    LIKE
+         CONCAT('%', #{questionKnowledge,jdbcType=VARCHAR},"%")
+  </select>
+
+  <insert id="insertQuestion"  parameterType="com.onlineExam.web.entity.Question">
+    INSERT INTO question(
+         question_number,
+         question_type,
+         question_difficulty,
+         question_knowledge,
+         question_point,
+         question_time,
+         question_stem,
+         question_answer,
+         question_img
+    )
+    VALUES(
+         #{questionNumber,jdbcType=INTEGER},
+         #{questionType,jdbcType=VARCHAR},
+         #{questionDifficulty,jdbcType=INTEGER},
+         #{questionKnowledge,jdbcType=VARCHAR},
+         #{questionPoint,jdbcType=INTEGER},
+         #{questionTime,jdbcType=INTEGER},
+         #{questionStem,jdbcType=VARCHAR},
+         #{questionAnswer,jdbcType=VARCHAR},
+         #{questionImg,jdbcType=VARCHAR}
+    )
+  </insert>
+
+  <update id="updateQuestion"  parameterType="com.onlineExam.web.entity.Question">
+    UPDATE question
+    SET
+      question_number = #{questionNumber,jdbcType=INTEGER},
+      question_type = #{questionType,jdbcType=VARCHAR},
+      question_difficulty = #{questionDifficulty,jdbcType=INTEGER},
+      question_knowledge = #{questionKnowledge,jdbcType=VARCHAR},
+      question_point = #{questionPoint,jdbcType=INTEGER},
+      question_time = #{questionTime,jdbcType=INTEGER},
+      question_stem = #{questionStem,jdbcType=VARCHAR},
+      question_answer = #{questionAnswer,jdbcType=VARCHAR},
+      question_img = #{questionImg,jdbcType=VARCHAR}
+    WHERE
+      question.question_number = #{questionNumber,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteQuestion" parameterType="java.lang.Integer">
+   DELETE FROM
+         question
+    WHERE
+         question.question_number = #{questionNumber}
+  </delete>
+
+</mapper>

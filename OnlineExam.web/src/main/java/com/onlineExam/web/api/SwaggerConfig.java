@@ -20,7 +20,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 // 以指定包为基础路径
-                .apis(RequestHandlerSelectors.basePackage("com.onlineExam.api"))
+                .apis(RequestHandlerSelectors.basePackage("com.onlineExam.web.api"))
                 .paths(PathSelectors.any())
                 .build();
     }

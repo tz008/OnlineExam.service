@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onlineExam.web.dao.NoticeMapper">
+  <resultMap id="BaseResultMap" type="com.onlineExam.web.entity.Notice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+
+  <select id="selectAll"  resultType="com.onlineExam.web.entity.Notice">
+    SELECT *
+    FROM notice
+  </select>
+
+  <select id="selectByid"  resultType="com.onlineExam.web.entity.Notice">
+    SELECT *
+    FROM notice
+    WHERE
+        notice.id = #{id}
+  </select>
+
+  <select id="selectByContent"  resultType="com.onlineExam.web.entity.Notice">
+    SELECT *
+    FROM notice
+    WHERE
+         notice.content
+    LIKE
+         CONCAT('%', #{content,jdbcType=VARCHAR},"%")
+  </select>
+
+  <insert id="insertNotice"  parameterType="com.onlineExam.web.entity.Notice">
+    INSERT INTO notice(
+         id,
+         content
+    )
+    VALUES(
+         #{id,jdbcType=INTEGER},
+         #{content,jdbcType=VARCHAR}
+    )
+  </insert>
+
+  <update id="updateNotice"  parameterType="com.onlineExam.web.entity.Notice">
+    UPDATE notice
+    SET
+      id = #{id,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR}
+    WHERE
+      notice.id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteNotice" parameterType="java.lang.Integer">
+   DELETE FROM
+         notice
+    WHERE
+         notice.id = #{id}
+  </delete>
+
+</mapper>

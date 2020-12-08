@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onlineExam.web.dao.TeacherMapper">
+
+  <resultMap id="BaseResultMap" type="com.onlineExam.web.entity.Teacher">
+    <id column="teacher_number" jdbcType="INTEGER" property="teacherNumber" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="phone" jdbcType="INTEGER" property="phone" />
+  </resultMap>
+
+  <select id="selectAll"  resultType="com.onlineExam.web.entity.Teacher">
+    SELECT *
+    FROM teacher
+  </select>
+
+  <select id="selectByTeacherNumber"  resultType="com.onlineExam.web.entity.Teacher">
+    SELECT *
+    FROM teacher
+    WHERE
+        teacher.teacher_number = #{teacherNumber}
+  </select>
+
+  <select id="getPassword"  resultType="java.lang.String">
+    SELECT password
+    FROM teacher
+    WHERE
+        teacher.teacher_number = #{teacherNumber}
+  </select>
+
+  <insert id="insertTeacher"  parameterType="com.onlineExam.web.entity.Teacher">
+    INSERT INTO teacher(
+         teacher_number,
+         `name`,
+         password,
+         subject,
+         phone
+    )
+    VALUES(
+         #{teacherNumber,jdbcType=INTEGER},
+         #{name,jdbcType=VARCHAR},
+         #{password,jdbcType=VARCHAR},
+         #{subject,jdbcType=VARCHAR},
+         #{phone,jdbcType=INTEGER}
+    )
+  </insert>
+
+  <delete id="deleteTeacher">
+    DELETE FROM
+         teacher
+    WHERE
+         teacher.teacher_number = #{teacherNumber}
+  </delete>
+
+  <update id="updateTeacher"  parameterType="com.onlineExam.web.entity.Teacher">
+    UPDATE teacher
+    SET
+      teacher_number = #{teacherNumber,jdbcType=INTEGER},
+      `name` = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=INTEGER}
+    WHERE
+      teacher.teacher_number = #{teacherNumber,jdbcType=INTEGER}
+
+  </update>
+
+
+
+
+</mapper>

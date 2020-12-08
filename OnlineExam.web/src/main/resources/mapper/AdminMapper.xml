@@ -7,13 +7,61 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
 
-
   <select id="selectAll"  resultType="com.onlineExam.web.entity.Admin">
-    select * from admin
+    SELECT *
+    FROM admin
   </select>
 
+  <select id="selectByAccount"  resultType="com.onlineExam.web.entity.Admin">
+    SELECT *
+    FROM admin
+    WHERE
+        admin.account = #{account}
+  </select>
 
+  <select id="getPassword"  resultType="java.lang.String">
+    SELECT password
+    FROM admin
+    WHERE
+        admin.account = #{account}
+  </select>
 
+  <select id="selectByName"  resultType="com.onlineExam.web.entity.Admin">
+    SELECT *
+    FROM admin
+    WHERE
+        admin.name = #{name}
+  </select>
 
+  <insert id="insertAdmin"  parameterType="com.onlineExam.web.entity.Admin">
+    INSERT INTO admin(
+         account,
+         password,
+         `name`
+    )
+    VALUES(
+         #{account,jdbcType=INTEGER},
+         #{password,jdbcType=VARCHAR},
+         #{name,jdbcType=VARCHAR}
+    )
+  </insert>
+
+  <update id="updateAdmin"  parameterType="com.onlineExam.web.entity.Admin">
+    UPDATE admin
+    SET
+      account = #{account,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR}
+    WHERE
+      admin.account = #{account,jdbcType=INTEGER}
+
+  </update>
+
+  <delete id="deleteAdmin">
+    DELETE FROM
+         admin
+    WHERE
+          admin.account = #{account}
+  </delete>
 
 </mapper>

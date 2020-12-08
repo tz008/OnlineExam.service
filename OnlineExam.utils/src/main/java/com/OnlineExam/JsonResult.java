@@ -5,8 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * @author
- * @description 自定义统一响应体
+ 自定义统一响应体
  */
 @ApiModel
 public class JsonResult<T> {
@@ -16,6 +15,7 @@ public class JsonResult<T> {
     private String msg;
     @ApiModelProperty(value = "响应的具体数据")
     private T data;
+
 
     public JsonResult(T data) {
         this(ResultCode.SUCCESS, data);
@@ -36,6 +36,40 @@ public class JsonResult<T> {
     public JsonResult(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
+        this.data = data;
+    }
+
+    public JsonResult(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public JsonResult(){
+       this.code = ResultCode.SUCCESS.getCode();
+       this.msg = ResultCode.SUCCESS.getMsg();
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
         this.data = data;
     }
 }
