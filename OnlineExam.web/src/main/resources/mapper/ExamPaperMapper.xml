@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onlineExam.web.dao.ExamPaperMapper">
+  <resultMap id="BaseResultMap" type="com.onlineExam.web.entity.ExamPaper">
+    <id column="exam_paper_number" jdbcType="INTEGER" property="examPaperNumber" />
+    <result column="exam_paper_difficulty" jdbcType="INTEGER" property="examPaperDifficulty" />
+    <result column="exam_paper_point" jdbcType="INTEGER" property="examPaperPoint" />
+    <result column="exam_paper_time" jdbcType="INTEGER" property="examPaperTime" />
+  </resultMap>
+
+  <select id="selectAll"  resultType="com.onlineExam.web.entity.ExamPaper">
+    SELECT *
+    FROM exam_paper
+  </select>
+
+  <select id="selectByExamPaperNumber"  resultType="com.onlineExam.web.entity.ExamPaper">
+    SELECT *
+    FROM exam_paper
+    WHERE
+        exam_paper.exam_paper_number = #{examPaperNumber}
+  </select>
+
+  <select id="selectByDifficulty"  resultType="com.onlineExam.web.entity.ExamPaper">
+    SELECT *
+    FROM exam_paper
+    WHERE
+        exam_paper.exam_paper_difficulty = #{examPaperDifficulty}
+  </select>
+
+  <insert id="insertExamPaper"  parameterType="com.onlineExam.web.entity.ExamPaper">
+    INSERT INTO exam_paper(
+         exam_paper_number,
+         exam_paper_difficulty,
+         exam_paper_point,
+         exam_paper_time
+    )
+    VALUES(
+         #{examPaperNumber,jdbcType=INTEGER},
+         #{examPaperDifficulty,jdbcType=INTEGER},
+         #{examPaperPoint,jdbcType=INTEGER},
+         #{examPaperTime,jdbcType=INTEGER}
+    )
+  </insert>
+
+  <update id="updateExamPaper"  parameterType="com.onlineExam.web.entity.ExamPaper">
+    UPDATE exam_paper
+    SET
+      exam_paper_number = #{examPaperNumber,jdbcType=INTEGER},
+      exam_paper_difficulty = #{examPaperDifficulty,jdbcType=INTEGER},
+      exam_paper_point = #{examPaperPoint,jdbcType=INTEGER},
+      exam_paper_time = #{examPaperTime,jdbcType=INTEGER}
+    WHERE
+      exam_paper.exam_paper_number = #{examPaperNumber,jdbcType=INTEGER}
+
+  </update>
+
+    <update id="updateByExamPaper"  parameterType="java.lang.Integer">
+    UPDATE exam_paper
+    SET exam_paper_point =
+    (
+       SELECT SUM(question_point)
+       FROM question
+       WHERE question_number IN
+    (
+           SELECT exam_paper_question.exam_question_number
+           FROM exam_paper_question
+           WHERE exam_paper_question.exam_paper_number = #{examPaperNumber}
+    )
+    ),
+       exam_paper_difficulty =
+    (
+       SELECT MAX(question_difficulty)
+       FROM question
+       WHERE question_number IN
+    (
+          SELECT exam_paper_question.exam_question_number
+          FROM exam_paper_question
+          WHERE exam_paper_question.exam_paper_number = #{examPaperNumber}
+    )
+    )
+    WHERE exam_paper_number = #{examPaperNumber};
+  </update>
+
+  <delete id="deleteExamPaper">
+    DELETE FROM
+         exam_paper
+    WHERE
+          exam_paper.exam_paper_number = #{examPaperNumber}
+  </delete>
+
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onlineExam.web.dao.ExamPaperQuestionMapper">
+  <resultMap id="BaseResultMap" type="com.onlineExam.web.entity.ExamPaperQuestion">
+    <id column="exam_paper_question_id" jdbcType="INTEGER" property="examPaperQuestionId" />
+    <result column="exam_question_number" jdbcType="INTEGER" property="examQuestionNumber" />
+    <result column="exam_paper_number" jdbcType="INTEGER" property="examPaperNumber" />
+  </resultMap>
+
+  <select id="selectAll"  resultType="com.onlineExam.web.entity.ExamPaperQuestion">
+    SELECT *
+    FROM exam_paper_question
+  </select>
+
+  <select id="selectByExamPaperQuestionId"  resultType="com.onlineExam.web.entity.ExamPaperQuestion">
+    SELECT *
+    FROM exam_paper_question
+    WHERE
+        exam_paper_question.exam_paper_question_id = #{examPaperQuestionId}
+  </select>
+
+  <select id="selectByExamQuestionNumber"  resultType="com.onlineExam.web.entity.ExamPaperQuestion">
+    SELECT *
+    FROM exam_paper_question
+    WHERE
+        exam_paper_question.exam_question_number = #{examQuestionNumber}
+  </select>
+
+  <select id="selectByExamPaperNumber"  resultType="com.onlineExam.web.entity.ExamPaperQuestion">
+    SELECT *
+    FROM exam_paper_question
+    WHERE
+        exam_paper_question.exam_paper_number = #{examPaperNumber}
+  </select>
+
+  <insert id="insertExamPaperQuestion"  parameterType="com.onlineExam.web.entity.ExamPaperQuestion">
+    INSERT INTO exam_paper_question(
+         exam_question_number,
+         exam_paper_number
+    )
+    VALUES(
+         #{examQuestionNumber,jdbcType=INTEGER},
+         #{examPaperNumber,jdbcType=INTEGER}
+    )
+  </insert>
+
+  <update id="updateExamPaperQuestion"  parameterType="com.onlineExam.web.entity.ExamPaperQuestion">
+    UPDATE exam_paper_question
+    SET
+      exam_paper_question_id = #{examPaperQuestionId,jdbcType=INTEGER},
+      exam_question_number = #{examQuestionNumber,jdbcType=INTEGER},
+      exam_paper_number = #{examPaperNumber,jdbcType=INTEGER}
+    WHERE
+      exam_paper_question.exam_paper_question_id = #{examPaperQuestionId,jdbcType=INTEGER}
+
+  </update>
+
+
+</mapper>

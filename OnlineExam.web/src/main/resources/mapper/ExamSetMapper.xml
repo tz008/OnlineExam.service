@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onlineExam.web.dao.ExamSetMapper">
+  <resultMap id="BaseResultMap" type="com.onlineExam.web.entity.ExamSet">
+    <id column="exam_set_number" jdbcType="INTEGER" property="examSetNumber" />
+    <result column="exam_latest_time" jdbcType="INTEGER" property="examLatestTime" />
+    <result column="exam_earlist_time" jdbcType="INTEGER" property="examEarlistTime" />
+    <result column="exam_paper_number" jdbcType="INTEGER" property="examPaperNumber" />
+    <result column="exam_teacher_number" jdbcType="INTEGER" property="examTeacherNumber" />
+    <result column="exam_student_number" jdbcType="VARCHAR" property="examStudentNumber" />
+  </resultMap>
+
+  <select id="selectAll"  resultType="com.onlineExam.web.entity.ExamSet">
+    SELECT *
+    FROM exam_set
+  </select>
+
+  <select id="selectByExamSetNumber"  resultType="com.onlineExam.web.entity.ExamSet">
+    SELECT *
+    FROM exam_set
+    WHERE
+        exam_set.exam_set_number = #{examSetNumber}
+  </select>
+
+  <select id="selectByTeacher"  resultType="com.onlineExam.web.entity.ExamSet">
+    SELECT *
+    FROM exam_set
+    WHERE
+        exam_set.exam_teacher_number = #{teacherNumber}
+  </select>
+
+  <select id="selectByExamPaper"  resultType="com.onlineExam.web.entity.ExamSet">
+    SELECT *
+    FROM exam_set
+    WHERE
+        exam_set.exam_paper_number = #{examPaperNumber}
+  </select>
+
+  <insert id="insertExamSet"  parameterType="com.onlineExam.web.entity.ExamSet">
+    INSERT INTO exam_set(
+         exam_set_number,
+         exam_latest_time,
+         exam_earlist_time,
+         exam_paper_number,
+         exam_teacher_number,
+         exam_student_number
+    )
+    VALUES(
+         #{examSetNumber,jdbcType=INTEGER},
+         #{examLatestTime,jdbcType=INTEGER},
+         #{examEarlistTime,jdbcType=INTEGER},
+         #{examPaperNumber,jdbcType=INTEGER},
+         #{examTeacherNumber,jdbcType=INTEGER},
+         #{examStudentNumber,jdbcType=VARCHAR}
+    )
+  </insert>
+
+  <update id="updateExamSet"  parameterType="com.onlineExam.web.entity.ExamSet">
+    UPDATE exam_set
+    SET
+      exam_set_number = #{examSetNumber,jdbcType=INTEGER},
+      exam_latest_time = #{examLatestTime,jdbcType=INTEGER},
+      exam_earlist_time = #{examEarlistTime,jdbcType=INTEGER},
+      exam_paper_number = #{examPaperNumber,jdbcType=INTEGER},
+      exam_teacher_number = #{examTeacherNumber,jdbcType=INTEGER},
+      exam_student_number = #{examStudentNumber,jdbcType=VARCHAR}
+    WHERE
+      exam_set.exam_set_number = #{examSetNumber,jdbcType=INTEGER}
+
+  </update>
+
+  <delete id="deleteExamSet">
+    DELETE FROM
+         exam_set
+    WHERE
+          exam_set.exam_set_number = #{examSetNumber}
+  </delete>
+
+</mapper>

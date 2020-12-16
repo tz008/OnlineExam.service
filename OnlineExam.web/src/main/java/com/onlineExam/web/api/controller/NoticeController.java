@@ -21,7 +21,7 @@ public class NoticeController {
     NoticeService noticeService;
 
     @ApiOperation("得到全部公告")
-    @GetMapping("/getAllAdmin")
+    @GetMapping("/getAll")
     public JsonResult<List<Notice>> selectAll(){
         return new JsonResult<>(noticeService.selectAll());
     }

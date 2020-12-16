@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        使用自定义登录
         auth.authenticationProvider(jwtAuthenticationProvider);
 //        System.out.println(new BCryptPasswordEncoder().encode("123"));
 //        auth.userDetailsService(userService)
@@ -37,8 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-            .antMatchers("/NoticeController/**","/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**").permitAll()
+        http.csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/ExamSetController/**","/NoticeController/**","/ExamPaperQuestionController/**","/ExamPaperController/**","/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**").permitAll()
             .anyRequest().authenticated()
             .and().formLogin().permitAll();
     }
