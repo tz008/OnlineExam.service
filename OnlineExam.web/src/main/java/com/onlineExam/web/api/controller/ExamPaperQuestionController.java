@@ -83,6 +83,7 @@ public class ExamPaperQuestionController {
             jsonResult.setMsg("关系已存在");
         }else {
             examPaperQuestionService.insertExamPaperQuestion(examPaperQuestion);
+//            更新对应试卷的难度和分值
             examPaperService.updateByExamPaper(examPaperQuestion.getExamPaperNumber());
             jsonResult.setCode(1000);
             jsonResult.setMsg("DB.INSERT.SUCCESS");

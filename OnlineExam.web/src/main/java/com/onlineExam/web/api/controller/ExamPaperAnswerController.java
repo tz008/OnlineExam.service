@@ -2,8 +2,10 @@ package com.onlineExam.web.api.controller;
 
 
 import com.OnlineExam.JsonResult;
+import com.onlineExam.web.entity.ExamAnswer;
 import com.onlineExam.web.entity.ExamPaperAnswer;
 import com.onlineExam.web.entity.Question;
+import com.onlineExam.web.service.ExamAnswerService;
 import com.onlineExam.web.service.ExamPaperAnswerService;
 import com.onlineExam.web.service.QuestionService;
 import io.swagger.annotations.Api;
@@ -24,6 +26,9 @@ public class ExamPaperAnswerController {
 
     @Autowired
     QuestionService questionService;
+
+    @Autowired
+    ExamAnswerService examAnswerService;
 
     @ApiOperation("得到考生答案")
     @GetMapping("/getAll")
@@ -89,6 +94,12 @@ public class ExamPaperAnswerController {
             jsonResult.setMsg("此答案不存在");
         }else {
             examPaperAnswerService.update(examPaperAnswer);
+            //                修改该考生主观题总分
+            ExamAnswer examAnswer = new ExamAnswer();
+            examAnswer.setExamAnswerNumber(examPaperAnswer.getExamAnswerNumber());
+            examAnswer.setExamObjectivePoint(0);
+            examAnswer.setExamSubjectivePoint(examPaperAnswer.getPoint());
+            examAnswerService.updatePoint(examAnswer);
             jsonResult.setCode(1000);
             jsonResult.setMsg("DB.UPDATE.SUCCESS");
         }
@@ -130,9 +141,17 @@ public class ExamPaperAnswerController {
                 }else {
                     examPaperAnswer.setPoint(0);
                 }
+                examPaperAnswerService.update(examPaperAnswer);
+//                修改该考生客观题总分
+                ExamAnswer examAnswer = new ExamAnswer();
+                examAnswer.setExamAnswerNumber(examPaperAnswer.getExamAnswerNumber());
+                examAnswer.setExamObjectivePoint(examPaperAnswer.getPoint());
+                examAnswer.setExamSubjectivePoint(0);
+                examAnswerService.updatePoint(examAnswer);
             }
-            examPaperAnswerService.update(examPaperAnswer);
+
         }
         return jsonResult;
     }
+
 }

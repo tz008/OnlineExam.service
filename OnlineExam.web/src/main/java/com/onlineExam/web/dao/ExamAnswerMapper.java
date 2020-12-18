@@ -23,4 +23,6 @@ public interface ExamAnswerMapper {
 
     void deleteExamAnswer(int examAnswerNumber);
 
+    void updatePoint(ExamAnswer examAnswer);
+
 }

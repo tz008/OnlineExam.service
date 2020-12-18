@@ -20,4 +20,6 @@ public interface ExamAnswerService {
 
     void deleteExamAnswer(int examAnswerNumber);
 
+    void updatePoint(ExamAnswer examAnswer);
+
 }

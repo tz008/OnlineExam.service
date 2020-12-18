@@ -48,4 +48,9 @@ public class ExamAnswerServiceImp implements ExamAnswerService {
     public void deleteExamAnswer(int examAnswerNumber) {
         examAnswerMapper.deleteExamAnswer(examAnswerNumber);
     }
+
+    @Override
+    public void updatePoint(ExamAnswer examAnswer) {
+        examAnswerMapper.updatePoint(examAnswer);
+    }
 }
