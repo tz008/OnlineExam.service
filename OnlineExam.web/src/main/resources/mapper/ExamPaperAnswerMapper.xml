@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onlineExam.web.dao.ExamPaperAnswerMapper">
+    <resultMap id="BaseResultMap" type="com.onlineExam.web.entity.ExamPaperAnswer">
+        <id column="exam_paper_answer_id" jdbcType="INTEGER" property="examPaperAnswerId" />
+        <result column="exam_answer_number" jdbcType="INTEGER" property="examAnswerNumber" />
+        <result column="exam_paper_question_id" jdbcType="INTEGER" property="examPaperQuestionId" />
+        <result column="exam_paper_answer" jdbcType="VARCHAR" property="examPaperAnswer" />
+        <result column="point" jdbcType="INTEGER" property="point" />
+    </resultMap>
+
+    <select id="selectAll"  resultType="com.onlineExam.web.entity.ExamPaperAnswer">
+    SELECT *
+    FROM exam_paper_answer
+    </select>
+
+    <select id="selectByExamPaperAnswerId"  resultType="com.onlineExam.web.entity.ExamPaperAnswer">
+    SELECT *
+    FROM exam_paper_answer
+    WHERE
+        exam_paper_answer.exam_paper_answer_id = #{examPaperAnswerId}
+    </select>
+
+    <select id="selectByExam"  resultType="com.onlineExam.web.entity.ExamPaperAnswer">
+    SELECT *
+    FROM exam_paper_answer
+    WHERE
+        exam_paper_answer.exam_paper_question_id = #{examPaperQuestionId}
+    </select>
+
+    <insert id="insert"  parameterType="com.onlineExam.web.entity.ExamPaperAnswer">
+    INSERT INTO exam_paper_answer(
+         exam_answer_number,
+         exam_paper_question_id,
+         exam_paper_answer
+    )
+    VALUES(
+         #{examAnswerNumber,jdbcType=INTEGER},
+         #{examPaperQuestionId,jdbcType=INTEGER},
+         #{examPaperAnswer,jdbcType=VARCHAR}
+    )
+    </insert>
+
+    <update id="update"  parameterType="com.onlineExam.web.entity.ExamPaperAnswer">
+    UPDATE exam_paper_answer
+    SET
+      exam_answer_number = #{examAnswerNumber,jdbcType=INTEGER},
+      exam_paper_question_id = #{examPaperQuestionId,jdbcType=INTEGER},
+      exam_paper_answer = #{examPaperAnswer,jdbcType=VARCHAR},
+      point = #{point,jdbcType=INTEGER}
+    WHERE
+      exam_paper_answer.exam_paper_answer_id = #{examPaperAnswerId,jdbcType=INTEGER}
+    </update>
+
+
+    <delete id="deleteByPrimaryKey">
+    DELETE FROM
+         exam_paper_answer
+    WHERE
+         exam_paper_answer.exam_paper_answer_id = #{examPaperAnswerId}
+    </delete>
+
+</mapper>

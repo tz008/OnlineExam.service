@@ -39,10 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-            .authorizeRequests()
-            .antMatchers("/ExamSetController/**","/NoticeController/**","/ExamPaperQuestionController/**","/ExamPaperController/**","/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**").permitAll()
-            .anyRequest().authenticated()
-            .and().formLogin().permitAll();
+                .authorizeRequests()
+                .antMatchers("/ExamPaperAnswerController/**","/ScoreController/**").permitAll()
+                .antMatchers("/ExamAnswerController/**","/ExamSetController/**","/NoticeController/**","/ExamPaperQuestionController/**","/ExamPaperController/**","/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**").permitAll()
+                .anyRequest().authenticated()
+                .and().formLogin().permitAll();
     }
 
 

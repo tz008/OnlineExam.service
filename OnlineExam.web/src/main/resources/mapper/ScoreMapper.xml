@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onlineExam.web.dao.ScoreMapper">
+    <resultMap id="BaseResultMap" type="com.onlineExam.web.entity.Score">
+        <id column="point_id" jdbcType="INTEGER" property="pointId" />
+        <result column="exam_answer_number" jdbcType="INTEGER" property="examAnswerNumber" />
+        <result column="point" jdbcType="INTEGER" property="point" />
+    </resultMap>
+
+    <select id="selectAll"  resultType="com.onlineExam.web.entity.Score">
+    SELECT *
+    FROM score
+  </select>
+
+    <select id="selectByPointId"  resultType="com.onlineExam.web.entity.Score">
+    SELECT *
+    FROM score
+    WHERE
+        score.point_id = #{pointId}
+  </select>
+
+    <select id="selectByExamAnswer"  resultType="com.onlineExam.web.entity.Score">
+    SELECT *
+    FROM score
+    WHERE
+        score.exam_answer_number = #{examAnswerNumber}
+  </select>
+
+
+    <insert id="insert"  parameterType="com.onlineExam.web.entity.Score">
+    INSERT INTO score(
+         exam_answer_number,
+         point
+    )
+    VALUES(
+         #{examAnswerNumber,jdbcType=INTEGER},
+         #{point,jdbcType=INTEGER}
+    )
+  </insert>
+
+    <update id="update"  parameterType="com.onlineExam.web.entity.Score">
+    UPDATE score
+    SET
+      exam_answer_number = #{examAnswerNumber,jdbcType=INTEGER},
+      point = #{point,jdbcType=INTEGER}
+    WHERE
+      score.point_id = #{pointId,jdbcType=INTEGER}
+
+  </update>
+
+    <delete id="delete">
+    DELETE FROM
+         score
+    WHERE
+          score.point_id = #{pointId}
+  </delete>
+
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onlineExam.web.dao.ExamAnswerMapper">
+    <resultMap id="BaseResultMap" type="com.onlineExam.web.entity.ExamAnswer">
+        <id column="exam_answer_number" jdbcType="INTEGER" property="examAnswerNumber" />
+        <result column="exam_objective_point" jdbcType="INTEGER" property="examObjectivePoint" />
+        <result column="exam_subjective_point" jdbcType="INTEGER" property="examSubjectivePoint" />
+        <result column="exam_student_number" jdbcType="INTEGER" property="examStudentNumber" />
+        <result column="exam_number" jdbcType="INTEGER" property="examNumber" />
+    </resultMap>
+
+    <select id="selectAll"  resultType="com.onlineExam.web.entity.ExamAnswer">
+    SELECT *
+    FROM exam_answer
+    </select>
+
+    <select id="selectByExamAnswer"  resultType="com.onlineExam.web.entity.ExamAnswer">
+    SELECT *
+    FROM exam_answer
+    WHERE
+        exam_answer.exam_answer_number = #{examAnswerNumber}
+    </select>
+
+    <select id="selectByExam"  resultType="com.onlineExam.web.entity.ExamAnswer">
+    SELECT *
+    FROM exam_answer
+    WHERE
+        exam_answer.exam_number = #{examNumber}
+    </select>
+
+    <select id="selectByStudent"  resultType="com.onlineExam.web.entity.ExamAnswer">
+    SELECT *
+    FROM exam_answer
+    WHERE
+        exam_answer.exam_student_number = #{studentNumber}
+    </select>
+
+    <insert id="insertExamAnswer"  parameterType="com.onlineExam.web.entity.ExamAnswer">
+    INSERT INTO exam_answer(
+         exam_objective_point,
+         exam_subjective_point,
+         exam_student_number,
+         exam_number
+    )
+    VALUES(
+         #{examObjectivePoint,jdbcType=INTEGER},
+         #{examSubjectivePoint,jdbcType=INTEGER},
+         #{examStudentNumber,jdbcType=INTEGER},
+         #{examNumber,jdbcType=INTEGER}
+    )
+    </insert>
+
+    <update id="updateExamAnswer"  parameterType="com.onlineExam.web.entity.ExamAnswer">
+    UPDATE exam_answer
+    SET
+      exam_objective_point = #{examObjectivePoint,jdbcType=INTEGER},
+      exam_subjective_point = #{examSubjectivePoint,jdbcType=INTEGER},
+      exam_student_number = #{examStudentNumber,jdbcType=INTEGER},
+      exam_number = #{examNumber,jdbcType=INTEGER}
+    WHERE
+      exam_answer.exam_answer_number = #{examAnswerNumber,jdbcType=INTEGER}
+    </update>
+
+
+    <delete id="deleteExamAnswer">
+    DELETE FROM
+         exam_answer
+    WHERE
+          exam_answer.exam_answer_number = #{examAnswerNumber,jdbcType=INTEGER}
+    </delete>
+
+</mapper>
