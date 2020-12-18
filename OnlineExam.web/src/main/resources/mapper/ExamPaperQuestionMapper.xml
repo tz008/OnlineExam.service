@@ -47,7 +47,6 @@
   <update id="updateExamPaperQuestion"  parameterType="com.onlineExam.web.entity.ExamPaperQuestion">
     UPDATE exam_paper_question
     SET
-      exam_paper_question_id = #{examPaperQuestionId,jdbcType=INTEGER},
       exam_question_number = #{examQuestionNumber,jdbcType=INTEGER},
       exam_paper_number = #{examPaperNumber,jdbcType=INTEGER}
     WHERE

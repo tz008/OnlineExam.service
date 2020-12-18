@@ -31,6 +31,11 @@ public class ScoreServiceImp implements ScoreService {
     }
 
     @Override
+    public List<Score> selectByStudent(int studentNumber) {
+        return scoreMapper.selectByStudent(studentNumber);
+    }
+
+    @Override
     public void insert(Score score) {
         scoreMapper.insert(score);
     }

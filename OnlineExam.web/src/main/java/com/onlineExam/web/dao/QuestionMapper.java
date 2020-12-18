@@ -22,4 +22,7 @@ public interface QuestionMapper {
     void updateQuestion(Question question);
 
     void deleteQuestion(int questionNumber);
+
+    Question selectByExamPaper(int id);
+
 }

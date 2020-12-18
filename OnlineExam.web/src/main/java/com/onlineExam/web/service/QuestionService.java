@@ -19,4 +19,7 @@ public interface QuestionService {
     void updateQuestion(Question question);
 
     void deleteQuestion(int questionNumber);
+
+    Question selectByExamPaper(int id);
+
 }

@@ -3,7 +3,9 @@ package com.onlineExam.web.api.controller;
 
 import com.OnlineExam.JsonResult;
 import com.onlineExam.web.entity.ExamPaperAnswer;
+import com.onlineExam.web.entity.Question;
 import com.onlineExam.web.service.ExamPaperAnswerService;
+import com.onlineExam.web.service.QuestionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ExamPaperAnswerController {
 
     @Autowired
     ExamPaperAnswerService examPaperAnswerService;
+
+    @Autowired
+    QuestionService questionService;
 
     @ApiOperation("得到考生答案")
     @GetMapping("/getAll")
@@ -54,6 +59,7 @@ public class ExamPaperAnswerController {
         return jsonResult;
     }
 
+
     @ApiOperation("增加答案")
     @PostMapping("/insert")
     public JsonResult insert(@RequestBody ExamPaperAnswer examPaperAnswer){
@@ -73,7 +79,7 @@ public class ExamPaperAnswerController {
         return jsonResult;
     }
 
-    @ApiOperation("修改答案")
+    @ApiOperation("修改答案/批改主观题")
     @PostMapping("/update")
     public JsonResult update(@RequestBody ExamPaperAnswer examPaperAnswer){
         JsonResult jsonResult = new JsonResult();
@@ -101,6 +107,31 @@ public class ExamPaperAnswerController {
             examPaperAnswerService.deleteByPrimaryKey(examPaperAnswerId);
             jsonResult.setCode(1000);
             jsonResult.setMsg("DB.DELETE.SUCCESS");
+        }
+        return jsonResult;
+    }
+
+    @ApiOperation("客观题自动批改")
+    @GetMapping("/updatePoint")
+    public JsonResult updatePoint(){
+        JsonResult jsonResult = new JsonResult();
+        List<ExamPaperAnswer> examPaperAnswerList = examPaperAnswerService.selectAll();
+        for(int i = 0; i<examPaperAnswerList.size(); i++){
+            ExamPaperAnswer examPaperAnswer = examPaperAnswerList.get(i);
+            int id = examPaperAnswer.getExamPaperQuestionId();
+            Question question = questionService.selectByExamPaper(id);
+            String type = question.getQuestionType();
+//            判断是否为客观题
+            if(!type.equals("问答题")){
+                String answer = question.getQuestionAnswer();
+//                与标准答案做比较
+                if(examPaperAnswer.getExamPaperAnswer().equals(answer)){
+                    examPaperAnswer.setPoint(question.getQuestionPoint());
+                }else {
+                    examPaperAnswer.setPoint(0);
+                }
+            }
+            examPaperAnswerService.update(examPaperAnswer);
         }
         return jsonResult;
     }

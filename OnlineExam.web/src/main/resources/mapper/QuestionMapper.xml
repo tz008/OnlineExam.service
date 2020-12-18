@@ -13,10 +13,22 @@
     <result column="question_img" jdbcType="VARCHAR" property="questionImg" />
   </resultMap>
 
+
   <select id="selectAll"  resultType="com.onlineExam.web.entity.Question">
     SELECT *
     FROM question
   </select>
+
+   <select id="selectByExamPaper"  resultType="com.onlineExam.web.entity.Question">
+    SELECT question.*
+    FROM question
+    WHERE question_number
+    IN(
+         SELECT exam_paper_question.exam_question_number
+         FROM exam_paper_question
+         WHERE exam_paper_question.exam_paper_question_id = #{id} )
+  </select>
+
 
   <select id="selectByQuestionNumber"  resultType="com.onlineExam.web.entity.Question">
     SELECT *

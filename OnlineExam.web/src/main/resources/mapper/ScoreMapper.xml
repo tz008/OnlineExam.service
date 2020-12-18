@@ -26,6 +26,18 @@
         score.exam_answer_number = #{examAnswerNumber}
   </select>
 
+    <select id="selectByStudent"  resultType="com.onlineExam.web.entity.Score">
+    SELECT *
+    FROM score
+    WHERE
+        score.exam_answer_number
+    In (
+        SELECT exam_answer.exam_answer_number
+	    FROM exam_answer
+	    WHERE exam_answer.exam_student_number = #{studentNumber}
+        )
+  </select>
+
 
     <insert id="insert"  parameterType="com.onlineExam.web.entity.Score">
     INSERT INTO score(

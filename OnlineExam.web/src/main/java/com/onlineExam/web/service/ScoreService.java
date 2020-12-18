@@ -12,6 +12,8 @@ public interface ScoreService {
 
     Score selectByExamAnswer(int examAnswerNumber);
 
+    List<Score> selectByStudent(int studentNumber);
+
     void insert(Score score);
 
     void update(Score score);

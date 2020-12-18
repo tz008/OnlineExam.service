@@ -50,4 +50,10 @@ public class QuestionServiceImp implements QuestionService {
     public void deleteQuestion(int questionNumber) {
         questionMapper.deleteQuestion(questionNumber);
     }
+
+    @Override
+    public Question selectByExamPaper(int id) {
+        return questionMapper.selectByExamPaper(id);
+    }
+
 }

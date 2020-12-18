@@ -2,7 +2,9 @@ package com.onlineExam.web.api.controller;
 
 
 import com.OnlineExam.JsonResult;
+import com.onlineExam.web.entity.ExamAnswer;
 import com.onlineExam.web.entity.ExamSet;
+import com.onlineExam.web.service.ExamAnswerService;
 import com.onlineExam.web.service.ExamPaperService;
 import com.onlineExam.web.service.ExamSetService;
 import io.swagger.annotations.Api;
@@ -23,6 +25,9 @@ public class ExamSetController {
 
     @Autowired
     ExamPaperService examPaperService;
+
+    @Autowired
+    ExamAnswerService examAnswerService;
 
     @ApiOperation("得到全部管理员")
     @GetMapping("/getAll")
@@ -82,6 +87,14 @@ public class ExamSetController {
             jsonResult.setMsg("此考试已存在");
         }else {
             examSetService.insertExamSet(examSet);
+//            为每个考生生成答题卡
+            String[]  students = examSet.getExamStudentNumber().split(",");
+            for(int i=0; i<students.length; i++){
+                ExamAnswer examAnswer = new ExamAnswer();
+                examAnswer.setExamNumber(examSet.getExamSetNumber());
+                examAnswer.setExamStudentNumber(Integer.parseInt(students[i]));
+                examAnswerService.insertExamAnswer(examAnswer);
+            }
             jsonResult.setCode(1000);
             jsonResult.setMsg("DB.INSERT.SUCCESS");
         }

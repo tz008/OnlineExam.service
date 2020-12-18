@@ -54,6 +54,20 @@ public class ScoreController {
         return jsonResult;
     }
 
+    @ApiOperation("根据学号得到分数")
+    @PostMapping("/selectByStudentNumber")
+    public JsonResult selectByStudentNumber(@RequestBody int studentNumber){
+        JsonResult jsonResult = new JsonResult();
+        List<Score> score = scoreService.selectByStudent(studentNumber);
+        if(score.isEmpty()){
+            jsonResult.setCode(1001);
+            jsonResult.setMsg("没有此分数");
+        }else {
+            jsonResult.setData(score);
+        }
+        return jsonResult;
+    }
+
     @ApiOperation("增加分数记录")
     @PostMapping("/insert")
     public JsonResult insert(@RequestBody Score score){
