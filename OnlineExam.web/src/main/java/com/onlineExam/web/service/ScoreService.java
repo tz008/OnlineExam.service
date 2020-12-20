@@ -19,4 +19,6 @@ public interface ScoreService {
     void update(Score score);
 
     void delete(int pointId);
+
+    void updatePoint();
 }

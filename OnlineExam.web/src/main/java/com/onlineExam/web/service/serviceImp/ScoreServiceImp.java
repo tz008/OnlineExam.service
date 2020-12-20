@@ -49,4 +49,9 @@ public class ScoreServiceImp implements ScoreService {
     public void delete(int pointId) {
         scoreMapper.delete(pointId);
     }
+
+    @Override
+    public void updatePoint() {
+        scoreMapper.updatePoint();
+    }
 }

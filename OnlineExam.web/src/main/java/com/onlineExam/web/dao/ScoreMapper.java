@@ -23,5 +23,7 @@ public interface ScoreMapper {
 
     void delete(int pointId);
 
+    void updatePoint();
+
 
 }

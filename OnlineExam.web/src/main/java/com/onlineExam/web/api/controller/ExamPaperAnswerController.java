@@ -8,6 +8,7 @@ import com.onlineExam.web.entity.Question;
 import com.onlineExam.web.service.ExamAnswerService;
 import com.onlineExam.web.service.ExamPaperAnswerService;
 import com.onlineExam.web.service.QuestionService;
+import com.onlineExam.web.service.ScoreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class ExamPaperAnswerController {
 
     @Autowired
     ExamAnswerService examAnswerService;
+
+    @Autowired
+    ScoreService scoreService;
 
     @ApiOperation("得到考生答案")
     @GetMapping("/getAll")
@@ -100,6 +104,8 @@ public class ExamPaperAnswerController {
             examAnswer.setExamObjectivePoint(0);
             examAnswer.setExamSubjectivePoint(examPaperAnswer.getPoint());
             examAnswerService.updatePoint(examAnswer);
+            //                修改该考生的总分
+            scoreService.updatePoint();
             jsonResult.setCode(1000);
             jsonResult.setMsg("DB.UPDATE.SUCCESS");
         }
@@ -148,10 +154,13 @@ public class ExamPaperAnswerController {
                 examAnswer.setExamObjectivePoint(examPaperAnswer.getPoint());
                 examAnswer.setExamSubjectivePoint(0);
                 examAnswerService.updatePoint(examAnswer);
+//                修改该考生的总分
+                scoreService.updatePoint();
             }
 
         }
         return jsonResult;
     }
+
 
 }

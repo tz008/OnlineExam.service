@@ -60,6 +60,14 @@
 
   </update>
 
+    <update id="updatePoint"  >
+     UPDATE score
+     SET score.point = (
+         SELECT exam_answer.exam_subjective_point + exam_answer.exam_objective_point
+         FROM exam_answer
+         WHERE exam_answer.exam_answer_number = score.exam_answer_number);
+  </update>
+
     <delete id="delete">
     DELETE FROM
          score
