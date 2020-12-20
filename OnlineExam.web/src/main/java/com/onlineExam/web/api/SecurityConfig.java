@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()   //取消csrf保护
                 .authorizeRequests()
-                .antMatchers("/ExamPaperAnswerController/**","/ScoreController/**").permitAll()
+                .antMatchers("/QuestionController/**","/ExamPaperAnswerController/**","/ScoreController/**").permitAll()
                 .antMatchers("/ExamAnswerController/**","/ExamSetController/**","/NoticeController/**","/ExamPaperQuestionController/**","/ExamPaperController/**","/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().permitAll();

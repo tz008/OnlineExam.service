@@ -73,15 +73,15 @@ public class NoticeController {
     }
 
     @ApiOperation("删除公告")
-    @PostMapping("/deleteNotice")
-    public JsonResult deleteNotice(@RequestBody int id){
+    @GetMapping("/deleteNotice")
+    public JsonResult deleteNotice( String id){
         JsonResult jsonResult = new JsonResult();
-        Notice selectNotice = noticeService.selectByid(id);
+        Notice selectNotice = noticeService.selectByid(Integer.parseInt(id));
         if(selectNotice == null){
             jsonResult.setCode(1001);
             jsonResult.setMsg("此公告不存在");
         }else {
-            noticeService.deleteNotice(id);
+            noticeService.deleteNotice(Integer.parseInt(id));
             jsonResult.setCode(1000);
             jsonResult.setMsg("DB.DELETE.SUCCESS");
         }

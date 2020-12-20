@@ -29,13 +29,11 @@
 
   <insert id="insertExamPaper"  parameterType="com.onlineExam.web.entity.ExamPaper">
     INSERT INTO exam_paper(
-         exam_paper_number,
          exam_paper_difficulty,
          exam_paper_point,
          exam_paper_time
     )
     VALUES(
-         #{examPaperNumber,jdbcType=INTEGER},
          #{examPaperDifficulty,jdbcType=INTEGER},
          #{examPaperPoint,jdbcType=INTEGER},
          #{examPaperTime,jdbcType=INTEGER}
@@ -81,7 +79,7 @@
     WHERE exam_paper_number = #{examPaperNumber};
   </update>
 
-  <delete id="deleteExamPaper">
+  <delete id="deleteExamPaper" parameterType="java.lang.Integer">
     DELETE FROM
          exam_paper
     WHERE

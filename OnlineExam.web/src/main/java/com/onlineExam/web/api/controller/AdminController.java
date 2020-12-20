@@ -102,15 +102,15 @@ public class AdminController {
     }
 
     @ApiOperation("删除管理员")
-    @PostMapping("/deleteAdmin")
-    public JsonResult deleteAdmin(@RequestBody int account){
+    @GetMapping("/deleteAdmin")
+    public JsonResult deleteAdmin( String account){
         JsonResult jsonResult = new JsonResult();
-        Admin selectAdmin = adminService.selectByAccount(account);
+        Admin selectAdmin = adminService.selectByAccount(Integer.parseInt(account));
         if(selectAdmin == null){
             jsonResult.setCode(1001);
             jsonResult.setMsg("此管理员不存在");
         }else {
-            adminService.deleteAdmin(account);
+            adminService.deleteAdmin(Integer.parseInt(account));
             jsonResult.setCode(1000);
             jsonResult.setMsg("DB.DELETE.SUCCESS");
         }

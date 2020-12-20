@@ -91,15 +91,15 @@ public class ExamAnswerController {
     }
 
     @ApiOperation("删除答卷")
-    @PostMapping("/deleteExamAnswer")
-    public JsonResult deleteExamAnswer(@RequestBody int examAnswerNumber){
+    @GetMapping("/deleteExamAnswer")
+    public JsonResult deleteExamAnswer( String examAnswerNumber){
         JsonResult jsonResult = new JsonResult();
-        ExamAnswer selectExamAnswer = examAnswerService.selectByExamAnswer(examAnswerNumber);
+        ExamAnswer selectExamAnswer = examAnswerService.selectByExamAnswer(Integer.parseInt(examAnswerNumber));
         if(selectExamAnswer == null){
             jsonResult.setCode(1001);
             jsonResult.setMsg("此答卷不存在");
         }else {
-            examAnswerService.deleteExamAnswer(examAnswerNumber);
+            examAnswerService.deleteExamAnswer(Integer.parseInt(examAnswerNumber));
             jsonResult.setCode(1000);
             jsonResult.setMsg("DB.DELETE.SUCCESS");
         }

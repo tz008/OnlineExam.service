@@ -31,4 +31,11 @@ public class ExamPaperQuestion {
     public void setExamPaperNumber(Integer examPaperNumber) {
         this.examPaperNumber = examPaperNumber;
     }
+
+    public ExamPaperQuestion(){};
+
+    public ExamPaperQuestion(Integer examQuestionNumber, Integer examPaperNumber) {
+        this.examQuestionNumber = examQuestionNumber;
+        this.examPaperNumber = examPaperNumber;
+    }
 }

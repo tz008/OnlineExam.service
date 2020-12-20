@@ -118,15 +118,15 @@ public class ExamSetController {
     }
 
     @ApiOperation("删除考试")
-    @PostMapping("/deleteExam")
-    public JsonResult deleteExam(@RequestBody int examSetNumber){
+    @GetMapping("/deleteExam")
+    public JsonResult deleteExam( String examSetNumber){
         JsonResult jsonResult = new JsonResult();
-        ExamSet selectExam = examSetService.selectByExamSetNumber(examSetNumber);
+        ExamSet selectExam = examSetService.selectByExamSetNumber(Integer.parseInt(examSetNumber));
         if(selectExam == null){
             jsonResult.setCode(1001);
             jsonResult.setMsg("此考试不存在");
         }else {
-            examSetService.deleteExamSet(examSetNumber);
+            examSetService.deleteExamSet(Integer.parseInt(examSetNumber));
             jsonResult.setCode(1000);
             jsonResult.setMsg("DB.DELETE.SUCCESS");
         }
